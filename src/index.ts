@@ -106,8 +106,8 @@ async function connectToWhatsApp() {
 
 // Rutas API
 
-// Estado del servidor
-app.get('/api/status', authenticate, (req: Request, res: Response) => {
+// Estado del servidor (sin auth para permitir página QR)
+app.get('/api/status', (req: Request, res: Response) => {
   res.json({
     connected: isConnected,
     phone: phoneNumber,
@@ -115,8 +115,8 @@ app.get('/api/status', authenticate, (req: Request, res: Response) => {
   })
 })
 
-// Obtener QR code
-app.get('/api/qr', authenticate, (req: Request, res: Response) => {
+// Obtener QR code (sin auth para permitir página QR)
+app.get('/api/qr', (req: Request, res: Response) => {
   if (isConnected) {
     return res.json({ connected: true, message: 'Ya está conectado' })
   }
