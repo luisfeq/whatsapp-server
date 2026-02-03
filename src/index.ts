@@ -1,3 +1,11 @@
+import { webcrypto } from 'crypto'
+
+// polyfill crypto
+if (!globalThis.crypto) {
+  // @ts-ignore
+  globalThis.crypto = webcrypto
+}
+
 import express, { Request, Response } from 'express'
 import makeWASocket, {
   DisconnectReason,
