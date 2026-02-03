@@ -6,9 +6,9 @@ import makeWASocket, {
 } from '@whiskeysockets/baileys'
 import { Boom } from '@hapi/boom'
 import * as QRCode from 'qrcode'
+// @ts-ignore
 import qrcodeTerminal from 'qrcode-terminal'
 import pino from 'pino'
-import path from 'path'
 import fs from 'fs'
 
 const app = express()
@@ -228,7 +228,8 @@ app.post('/api/send-message', authenticate, async (req: Request, res: Response) 
     const jid = phone.includes('@') ? phone : `${phone}@s.whatsapp.net`
 
     // Verificar si el número existe en WhatsApp
-    const [result] = await sock.onWhatsApp(phone)
+    const results = await sock.onWhatsApp(phone)
+    const result = results?.[0]
 
     if (!result?.exists) {
       return res.status(404).json({ error: 'El número no está registrado en WhatsApp' })
